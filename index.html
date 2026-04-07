@@ -89,10 +89,15 @@
                     </div>
                 <div id="reviewNoteArea" class="hidden space-y-4">
                     </div>
-            </div>
+            <div class="pt-4 mt-6">
+                    <button id="resetBtn" class="w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold py-4 px-4 rounded-xl text-lg transition-colors shadow-sm flex items-center justify-center gap-2">
+                        <span class="text-xl">🔄</span> 처음으로 돌아가기 (새로운 문제 뽑기)
+                    </button>
+                </div>
+                </div>
         </div>
     </div>
-
+    
     <script>
         let globalQuizData = [];
 
@@ -390,6 +395,25 @@
             setTimeout(() => {
                 resultArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 300);
+        });
+        // --- 4. 초기화(리셋) 버튼 로직 ---
+        document.getElementById('resetBtn').addEventListener('click', () => {
+            // 결과창과 퀴즈창 숨기기
+            resultArea.classList.add('hidden');
+            quizContainer.classList.add('hidden');
+            
+            // 문제 생성 버튼 다시 활성화
+            generateBtn.disabled = false;
+            
+            // 채점 버튼 초기화 (다시 누를 수 있게)
+            submitQuizBtn.disabled = false;
+            submitQuizBtn.innerText = '답안 제출 및 채점하기';
+            submitQuizBtn.classList.replace('bg-gray-400', 'bg-slate-800');
+            submitQuizBtn.classList.replace('hover:bg-gray-400', 'hover:bg-slate-900');
+            submitQuizBtn.classList.remove('hidden');
+            
+            // 화면 최상단으로 스무스하게 스크롤 올려주기
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     </script>
 </body>
